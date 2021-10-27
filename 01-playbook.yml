@@ -1,0 +1,12 @@
+---
+- name: creating directory
+  hosts: all
+
+  tasks:
+  - name: Creating dir
+    file:
+     path: /home/centos/Demo
+     state: directory
+   
+  
+...

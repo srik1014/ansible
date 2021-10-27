@@ -1,0 +1,23 @@
+---
+- name: creating directory
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: pemissive setting  httpd file
+    selinux:
+     policy: targeted
+     state: permissive
+
+  - name: copy the httpd file
+    copy:
+     src: /home/centos/playbook/httpd.conf
+     dest: /etc/httpd/conf/httpd.conf
+    notify: when placed
+  handlers:
+  - name: when placed
+    service:
+     name: httpd
+     state: restarted
+  
+...

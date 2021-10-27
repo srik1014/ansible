@@ -1,0 +1,31 @@
+---
+- name: creating directory
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Intall httpd
+    package:
+     name: httpd
+     state: present
+  - name : Installing git
+    package:
+     name: git
+     state: present
+  - name: starting service 
+    service:
+     name: httpd
+     state: started
+  - name: Dowloading code
+    git:
+     repo: https://github.com/ravi2krishna/ecomm.git
+     dest: /home/centos/staticcode
+  - name: Copying static code in html location
+    copy:
+     src: /home/centos/staticcode/
+     dest: /var/www/html
+     remote_src: yes
+
+ 
+  
+...

@@ -1,0 +1,25 @@
+---
+- name: creating directory
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Install php
+    yum:
+     name: php
+     state: present
+    notify: restart 
+
+   
+  - name: Copy php file
+    copy:
+     src: /home/centos/playbook/date.php
+     dest: /var/www/html/date.php
+  
+  handlers:
+  - name: restart
+    service:
+     name: httpd
+     state: restarted
+  
+...
